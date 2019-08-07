@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.gameHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+.gameHolder > #gameCanvas {
+    border: 1px solid black;
+    margin: 5px;
+    width: 500px !important;
+    height: 300px !important;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    height: 40vh;
+}
+
+.footer > .info {
+    text-align: center;
+}
