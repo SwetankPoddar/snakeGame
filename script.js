@@ -211,3 +211,10 @@ function initializeGame(canvasId, score, initalSnakeSize  = 5){
     drawSnake();
     getNewFood();
 }
+
+// Controller for mobile phones
+function simulateKey(key){
+    e = $.Event('keydown');
+    e.keyCode= key; 
+    $(canvas).trigger(e);
+}
