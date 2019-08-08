@@ -14,7 +14,7 @@ var canvasHeight = 150; // canvas height
 var canvasWidth = 300; // canvas width
 var increasedSize = false; // has eatned food?
 
-var snake = []; // the snake
+var snake; // the snake
 
 food = {x:-5, y:-5}; // food position (not reachable at start)
 
@@ -22,12 +22,6 @@ var startingX = 50; // starting x point
 var startingY = 50; // starting y point
 
 var direction = 38; //Key code for down (but it goes up lol)
-
-// Initalize the sname from the start point
-for(i = 0; i<snakeSize; i++){
-    snake.push({x:startingX,y:startingY});
-    startingY += onePartSize; 
-}
 
 //Game over function
 function gameOver() {
@@ -38,7 +32,6 @@ function gameOver() {
     ctx.fillRect(0,0,canvasWidth,canvasHeight);
     ctx.fillStyle = "white";
     ctx.fillText("Game Over", 10, 50);
-    ctx.fillText("Swetank Poddar :D",10,100);
     clearInterval(moving);
 }
 
@@ -190,26 +183,37 @@ function getNewFood(){
 
     // Set food color
     ctx.fillStyle = foodColor;
-    // Plcae the food on canvas
-    ctx.fillRect(randomX, randomY, 10,10);
     
+    // Place the food on canvas
+    ctx.fillRect(randomX, randomY, 10,10);
+
     console.log("New food placed");
 }
 
 // go one step more in the current direction every 300 miliseconds
 var moving = setInterval(function(){
-    e = $.Event('keydown');
-    e.keyCode= direction; // direction
-    $(canvas).trigger(e);
+    simulateKey(direction)
 },200);
 
 function initializeGame(canvasId, score, initalSnakeSize  = 5){
     canvas = document.getElementById(canvasId);
-    scoreBoard = document.getElementById(score);
-    snakeSize = initalSnakeSize;
     ctx = canvas.getContext('2d');
+
+    scoreBoard = document.getElementById(score);
+    
+    snakeSize = initalSnakeSize;
+    snake = [];
+    
+    // Initalize the sname from the start point
+    for(i = 0; i<snakeSize; i++){
+        snake.push({x:startingX,y:startingY});
+        startingY += onePartSize; 
+    }
+
     drawSnake();
     getNewFood();
+
+    console.log("Game initilized");
 }
 
 // Controller for mobile phones
