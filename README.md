@@ -4,4 +4,4 @@ Trying to learn JavaScript canvas!
 Developed the legendry snake game in JavaScript!
 <br><br>
 
-Also, you can play the game online (thanks to github pages :P) <a href="https://snakegame.swetankpoddar.me"> https://snakegame.swetankpoddar.me</a>
+Also, you can play the game online (thanks to <a href="https://zeit.co/">Zeit.co</a>) <a href="https://snakegame.swetankpoddar.me"> https://snakegame.swetankpoddar.me</a>

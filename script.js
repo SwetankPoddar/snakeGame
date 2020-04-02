@@ -1,12 +1,12 @@
 
-var canvas,ctx,scoreBoard;
+var canvas, ctx, scoreBoard;
 
 
 //// Colors
 var fillColor = "green"; // body color
 var strokeColor = "white"; // spacing color
 var foodColor = "red" // food color
-///
+
 
 var onePartSize = 10; // one block size
 var snakeSize = 5; // inital size
@@ -123,7 +123,7 @@ function drawSnake() {
     if(increasedSize){
         increaseSize();
         increasedSize = false;
-        console.log("increased size");
+        //console.log("increased size");
         getNewFood();
     }
 }
@@ -187,7 +187,7 @@ function getNewFood(){
     // Place the food on canvas
     ctx.fillRect(randomX, randomY, 10,10);
 
-    console.log("New food placed");
+    //console.log("New food placed");
 }
 
 // go one step more in the current direction every 300 miliseconds
