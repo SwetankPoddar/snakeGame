@@ -1,9 +1,15 @@
 
-var canvas, ctx, scoreBoard;
+Object.defineProperty(HTMLMediaElement.prototype, 'playing', {
+    get: function(){
+        return !!(this.currentTime > 0 && !this.paused && !this.ended && this.readyState > 2);
+    }
+});
 
+
+var canvas, ctx, scoreBoard , rewardBoard, videoPlayer, paused = false;
 
 //// Colors
-var fillColor = "green"; // body color
+var fillColor = "#172554"; // body color
 var strokeColor = "white"; // spacing color
 var foodColor = "red" // food color
 
@@ -57,7 +63,7 @@ function drawSnakePart(snakePart){
     
     //Draw the snake at this cordinate
     ctx.fillRect(snakePart.x,snakePart.y, onePartSize,onePartSize);
-    ctx.strokeRect(snakePart.x, snakePart.y, onePartSize, onePartSize);
+    // ctx.strokeRect(snakePart.x, snakePart.y, onePartSize, onePartSize);
 }
 
 // Increase the size of the snake
@@ -90,9 +96,36 @@ function increaseSize(){
     // Insert the new snake tail
     snake.push(part);
 
+    var currentScore = snake.length - snakeSize;
     // Update score
+    scoreBoard.innerHTML = currentScore;
 
-    scoreBoard.innerHTML = snake.length - snakeSize;
+    var nextReward = null; 
+
+    if(currentScore < 5) {
+        nextReward = 5; 
+    } else if(currentScore < 10) {
+        nextReward = 10;
+    }
+
+    if(currentScore == 5 || currentScore == 10) {
+        var video = $('<video />', {
+            id: 'video-element',
+            src: '/videos/'+ currentScore.toString() +'.mp4',
+            type: 'video/mp4',
+            controls: true
+        });
+        video.appendTo($('#video-container'));
+        $("#video-container").modal();
+    }
+
+    if(nextReward == null) {
+        document.getElementById('points-left').innerHTML = "You have received all the rewards, <span style='color:red'>happy birthday</span>!";
+    } else {
+        // Update reward
+        rewardBoard.innerHTML = nextReward - currentScore;
+    }
+    
 }
 
 function drawSnake() {
@@ -192,15 +225,17 @@ function getNewFood(){
 
 // go one step more in the current direction every 300 miliseconds
 var moving = setInterval(function(){
+    if(paused) return;
     simulateKey(direction)
 },200);
 
-function initializeGame(canvasId, score, initalSnakeSize  = 5){
+function initializeGame(canvasId, score, rewards, initalSnakeSize  = 5){
     canvas = document.getElementById(canvasId);
     ctx = canvas.getContext('2d');
 
     scoreBoard = document.getElementById(score);
-    
+    rewardBoard = document.getElementById(rewards);
+
     snakeSize = initalSnakeSize;
     snake = [];
     
@@ -212,8 +247,14 @@ function initializeGame(canvasId, score, initalSnakeSize  = 5){
 
     drawSnake();
     getNewFood();
-
     console.log("Game initilized");
+
+    $("#video-container").on('modal:open', () => paused = true);
+    $("#video-container").on('modal:close', () => {
+        paused = false;
+        $('#video-element').remove();
+    });    
+    
 }
 
 // Controller for mobile phones

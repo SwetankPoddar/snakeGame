@@ -9,33 +9,47 @@
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/23500b8871.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=typography,aspect-ratio,line-clamp"></script>
+  <!-- Remember to include jQuery :) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="video-container" class="modal">
+  </div>
+<h2 class="m-5 text-center">Score: <span id="score" class="font-bold">0</span></h2>
+<h3 class="m-5 text-center" id="points-left">Your next reward is in <span class="font-bold" id="nextReward">5</span> points.</h3>
 <div class="gameHolder">
     <canvas id="gameCanvas"></canvas>
 </div>
 <div class="footer">
   <div class="info">
-    <div class="controller">
-      <div class="inline">
-        <span></span> <button onclick="simulateKey(38);"><i class="fas fa-arrow-up"></i></button> <span></span>
+    <div class="controller mt-5  mb-5">
+      <div>
+        <button class="p-2 bg-blue-950 text-white rounded-none shadow-sm mb-1" onclick="simulateKey(38);"><i class="fas fa-arrow-up"></i></button> <span></span>
       </div>
       <div class="inline">
-          <button onclick="simulateKey(37);"><i class="fas fa-arrow-left"></i></button>
-          <button onclick="simulateKey(40);"><i class="fas fa-arrow-down"></i></button>
-          <button onclick="simulateKey(39);"><i class="fas fa-arrow-right"></i></button>
+          <button class="p-2 bg-blue-950 text-white rounded-none shadow-sm" onclick="simulateKey(37);"><i class="fas fa-arrow-left"></i></button>
+          <button class="p-2 bg-blue-950 text-white rounded-none shadow-sm" onclick="simulateKey(40);"><i class="fas fa-arrow-down"></i></button>
+          <button class="p-2 bg-blue-950 text-white rounded-none shadow-sm" onclick="simulateKey(39);"><i class="fas fa-arrow-right"></i></button>
         </div>
+        <hr class="mt-5">
     </div>
-    <h2>Score: <span id="score">0</span></h2>
-    <button onclick="location.reload()">Restart Game</button>
-    <h4>Developed with <i class="fas fa-heart"></i> by <a href="https://www.swetankpoddar.me">Swetank</a> :D</h4>
+    <button class="mt-3 px-4 py-2 font-semibold text-sm bg-blue-950 text-white rounded-none shadow-sm" onclick="location.reload()">Restart Game</button>
+    <h4 class="font-bold mt-5">Developed with <i style="color:red" class="fas fa-heart"></i> by Richa :)</h4>
+    
+  </div>
   </div>
 </div>
 </body>
 <script src="script.js"></script>
 <script>
-  initializeGame("gameCanvas","score");
+  initializeGame("gameCanvas","score", "nextReward");
 </script>
 </html>
